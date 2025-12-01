@@ -1,0 +1,10 @@
+[
+    {
+        "type": "Free",
+        "tokens": "1M "
+    },
+    {
+        "type": "PAYG",
+        "tokens": "> 1M"
+    }
+]
