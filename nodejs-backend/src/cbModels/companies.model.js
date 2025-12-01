@@ -33,6 +33,7 @@ module.exports = function (app) {
       },
 
       newCompanyNumber: {
+        type: Number,
         comment:
           "New company number, p_number, false, true, true, true, true, true, true, , , , ,",
       },
