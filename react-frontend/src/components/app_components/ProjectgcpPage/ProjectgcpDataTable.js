@@ -1,12 +1,12 @@
-import { Column } from 'primereact/column';
-import { DataTable } from 'primereact/datatable';
-import React, { useState, useRef, useEffect} from 'react';
-import _ from 'lodash';
-import { Button } from 'primereact/button';
+import { Column } from "primereact/column";
+import { DataTable } from "primereact/datatable";
+import React, { useState, useRef, useEffect } from "react";
+import _ from "lodash";
+import { Button } from "primereact/button";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import UploadService from "../../../services/UploadService";
-import { InputText } from 'primereact/inputtext';
+import { InputText } from "primereact/inputtext";
 import { Dialog } from "primereact/dialog";
 import { MultiSelect } from "primereact/multiselect";
 import DownloadCSV from "../../../utils/DownloadCSV";
@@ -18,38 +18,72 @@ import DuplicateIcon from "../../../assets/media/Duplicate.png";
 import DeleteIcon from "../../../assets/media/Trash.png";
 import { Checkbox } from "primereact/checkbox";
 
-const ProjectgcpDataTable = ({ items, fields, onEditRow, onRowDelete, onRowClick, searchDialog, setSearchDialog,   showUpload, setShowUpload,
-    showFilter, setShowFilter,
-    showColumns, setShowColumns, onClickSaveFilteredfields ,
-    selectedFilterFields, setSelectedFilterFields,
-    selectedHideFields, setSelectedHideFields, onClickSaveHiddenfields, loading, user,   selectedDelete,
-  setSelectedDelete, onCreateResult}) => {
-    const dt = useRef(null);
-    const urlParams = useParams();
-    const [globalFilter, setGlobalFilter] = useState('');
+const ProjectgcpDataTable = ({
+  items,
+  fields,
+  onEditRow,
+  onRowDelete,
+  onRowClick,
+  searchDialog,
+  setSearchDialog,
+  showUpload,
+  setShowUpload,
+  showFilter,
+  setShowFilter,
+  showColumns,
+  setShowColumns,
+  onClickSaveFilteredfields,
+  selectedFilterFields,
+  setSelectedFilterFields,
+  selectedHideFields,
+  setSelectedHideFields,
+  onClickSaveHiddenfields,
+  loading,
+  user,
+  selectedDelete,
+  setSelectedDelete,
+  onCreateResult,
+}) => {
+  const dt = useRef(null);
+  const urlParams = useParams();
+  const [globalFilter, setGlobalFilter] = useState("");
   const [selectedItems, setSelectedItems] = useState([]);
   const [showDialog, setShowDialog] = useState(false);
   const [data, setData] = useState([]);
 
-const pTemplate0 = (rowData, { rowIndex }) => <p >{rowData.projectId}</p>
-const pTemplate1 = (rowData, { rowIndex }) => <p >{rowData.env}</p>
-const pTemplate2 = (rowData, { rowIndex }) => <p >{rowData.gcpProjectId}</p>
-const pTemplate3 = (rowData, { rowIndex }) => <p >{rowData.location}</p>
-const pTemplate4 = (rowData, { rowIndex }) => <p >{rowData.imageUri}</p>
-const pTemplate5 = (rowData, { rowIndex }) => <p >{rowData.imageName}</p>
-const p_booleanTemplate6 = (rowData, { rowIndex }) => <p >{String(rowData.authentication)}</p>
-const pTemplate7 = (rowData, { rowIndex }) => <p >{rowData.serviceAccount}</p>
-const pTemplate8 = (rowData, { rowIndex }) => <p >{rowData.memory}</p>
-const pTemplate9 = (rowData, { rowIndex }) => <p >{rowData.cpu}</p>
-const pTemplate10 = (rowData, { rowIndex }) => <p >{rowData.concurrency}</p>
-const pTemplate11 = (rowData, { rowIndex }) => <p >{rowData.maxInstances}</p>
-const pTemplate12 = (rowData, { rowIndex }) => <p >{rowData.minInstances}</p>
-const pTemplate13 = (rowData, { rowIndex }) => <p >{rowData.vpcConnector}</p>
-const pTemplate14 = (rowData, { rowIndex }) => <p >{rowData.vpcEgress}</p>
-    const editTemplate = (rowData, { rowIndex }) => <Button onClick={() => onEditRow(rowData, rowIndex)} icon={`pi ${rowData.isEdit ? "pi-check" : "pi-pencil"}`} className={`p-button-rounded p-button-text ${rowData.isEdit ? "p-button-success" : "p-button-warning"}`} />;
-    const deleteTemplate = (rowData, { rowIndex }) => <Button onClick={() => onRowDelete(rowData._id)} icon="pi pi-times" className="p-button-rounded p-button-danger p-button-text" />;
-    
-      const checkboxTemplate = (rowData) => (
+  const pTemplate0 = (rowData, { rowIndex }) => <p>{rowData.projectId}</p>;
+  const pTemplate1 = (rowData, { rowIndex }) => <p>{rowData.env}</p>;
+  const pTemplate2 = (rowData, { rowIndex }) => <p>{rowData.gcpProjectId}</p>;
+  const pTemplate3 = (rowData, { rowIndex }) => <p>{rowData.location}</p>;
+  const pTemplate4 = (rowData, { rowIndex }) => <p>{rowData.imageUri}</p>;
+  const pTemplate5 = (rowData, { rowIndex }) => <p>{rowData.imageName}</p>;
+  const p_booleanTemplate6 = (rowData, { rowIndex }) => (
+    <p>{String(rowData.authentication)}</p>
+  );
+  const pTemplate7 = (rowData, { rowIndex }) => <p>{rowData.serviceAccount}</p>;
+  const pTemplate8 = (rowData, { rowIndex }) => <p>{rowData.memory}</p>;
+  const pTemplate9 = (rowData, { rowIndex }) => <p>{rowData.cpu}</p>;
+  const pTemplate10 = (rowData, { rowIndex }) => <p>{rowData.concurrency}</p>;
+  const pTemplate11 = (rowData, { rowIndex }) => <p>{rowData.maxInstances}</p>;
+  const pTemplate12 = (rowData, { rowIndex }) => <p>{rowData.minInstances}</p>;
+  const pTemplate13 = (rowData, { rowIndex }) => <p>{rowData.vpcConnector}</p>;
+  const pTemplate14 = (rowData, { rowIndex }) => <p>{rowData.vpcEgress}</p>;
+  const editTemplate = (rowData, { rowIndex }) => (
+    <Button
+      onClick={() => onEditRow(rowData, rowIndex)}
+      icon={`pi ${rowData.isEdit ? "pi-check" : "pi-pencil"}`}
+      className={`p-button-rounded p-button-text ${rowData.isEdit ? "p-button-success" : "p-button-warning"}`}
+    />
+  );
+  const deleteTemplate = (rowData, { rowIndex }) => (
+    <Button
+      onClick={() => onRowDelete(rowData._id)}
+      icon="pi pi-times"
+      className="p-button-rounded p-button-danger p-button-text"
+    />
+  );
+
+  const checkboxTemplate = (rowData) => (
     <Checkbox
       checked={selectedItems.some((item) => item._id === rowData._id)}
       onChange={(e) => {
@@ -90,7 +124,7 @@ const pTemplate14 = (rowData, { rowIndex }) => <p >{rowData.vpcEgress}</p>
       console.error("Failed to delete selected records", error);
     }
   };
-    
+
   const handleMessage = () => {
     setShowDialog(true); // Open the dialog
   };
@@ -99,10 +133,10 @@ const pTemplate14 = (rowData, { rowIndex }) => <p >{rowData.vpcEgress}</p>
     setShowDialog(false); // Close the dialog
   };
 
-    return (
-        <>
-        <DataTable 
-           value={items}
+  return (
+    <>
+      <DataTable
+        value={items}
         ref={dt}
         removableSort
         onRowClick={onRowClick}
@@ -120,32 +154,149 @@ const pTemplate14 = (rowData, { rowIndex }) => <p >{rowData.vpcEgress}</p>
         selection={selectedItems}
         onSelectionChange={(e) => setSelectedItems(e.value)}
         onCreateResult={onCreateResult}
-        >
-                <Column
+      >
+        <Column
           selectionMode="multiple"
           headerStyle={{ width: "3rem" }}
           body={checkboxTemplate}
         />
-<Column field="projectId" header="Project ID" body={pTemplate0} filter={selectedFilterFields.includes("projectId")} hidden={selectedHideFields?.includes("projectId")}  sortable style={{ minWidth: "8rem" }} />
-<Column field="env" header="env" body={pTemplate1} filter={selectedFilterFields.includes("env")} hidden={selectedHideFields?.includes("env")}  sortable style={{ minWidth: "8rem" }} />
-<Column field="gcpProjectId" header="GCP Project ID" body={pTemplate2} filter={selectedFilterFields.includes("gcpProjectId")} hidden={selectedHideFields?.includes("gcpProjectId")}  sortable style={{ minWidth: "8rem" }} />
-<Column field="location" header="Location" body={pTemplate3} filter={selectedFilterFields.includes("location")} hidden={selectedHideFields?.includes("location")}  sortable style={{ minWidth: "8rem" }} />
-<Column field="imageUri" header="Image URI" body={pTemplate4} filter={selectedFilterFields.includes("imageUri")} hidden={selectedHideFields?.includes("imageUri")}  sortable style={{ minWidth: "8rem" }} />
-<Column field="imageName" header="Image Name" body={pTemplate5} filter={selectedFilterFields.includes("imageName")} hidden={selectedHideFields?.includes("imageName")}  sortable style={{ minWidth: "8rem" }} />
-<Column field="authentication" header="Authentication" body={p_booleanTemplate6} filter={selectedFilterFields.includes("authentication")} hidden={selectedHideFields?.includes("authentication")}  style={{ minWidth: "8rem" }} />
-<Column field="serviceAccount" header="Service Account" body={pTemplate7} filter={selectedFilterFields.includes("serviceAccount")} hidden={selectedHideFields?.includes("serviceAccount")}  sortable style={{ minWidth: "8rem" }} />
-<Column field="memory" header="Memory" body={pTemplate8} filter={selectedFilterFields.includes("memory")} hidden={selectedHideFields?.includes("memory")}  sortable style={{ minWidth: "8rem" }} />
-<Column field="cpu" header="CPU" body={pTemplate9} filter={selectedFilterFields.includes("cpu")} hidden={selectedHideFields?.includes("cpu")}  sortable style={{ minWidth: "8rem" }} />
-<Column field="concurrency" header="Concurrency" body={pTemplate10} filter={selectedFilterFields.includes("concurrency")} hidden={selectedHideFields?.includes("concurrency")}  sortable style={{ minWidth: "8rem" }} />
-<Column field="maxInstances" header="Max Instances" body={pTemplate11} filter={selectedFilterFields.includes("maxInstances")} hidden={selectedHideFields?.includes("maxInstances")}  sortable style={{ minWidth: "8rem" }} />
-<Column field="minInstances" header="Min Instances" body={pTemplate12} filter={selectedFilterFields.includes("minInstances")} hidden={selectedHideFields?.includes("minInstances")}  sortable style={{ minWidth: "8rem" }} />
-<Column field="vpcConnector" header="VPC Connector" body={pTemplate13} filter={selectedFilterFields.includes("vpcConnector")} hidden={selectedHideFields?.includes("vpcConnector")}  sortable style={{ minWidth: "8rem" }} />
-<Column field="vpcEgress" header="VPC Egress" body={pTemplate14} filter={selectedFilterFields.includes("vpcEgress")} hidden={selectedHideFields?.includes("vpcEgress")}  sortable style={{ minWidth: "8rem" }} />
-            <Column header="Edit" body={editTemplate} />
-            <Column header="Delete" body={deleteTemplate} />
-            
-        </DataTable>
-
+        <Column
+          field="projectId"
+          header="Project ID"
+          body={pTemplate0}
+          filter={selectedFilterFields.includes("projectId")}
+          hidden={selectedHideFields?.includes("projectId")}
+          sortable
+          style={{ minWidth: "8rem" }}
+        />
+        <Column
+          field="env"
+          header="env"
+          body={pTemplate1}
+          filter={selectedFilterFields.includes("env")}
+          hidden={selectedHideFields?.includes("env")}
+          sortable
+          style={{ minWidth: "8rem" }}
+        />
+        <Column
+          field="gcpProjectId"
+          header="GCP Project ID"
+          body={pTemplate2}
+          filter={selectedFilterFields.includes("gcpProjectId")}
+          hidden={selectedHideFields?.includes("gcpProjectId")}
+          sortable
+          style={{ minWidth: "8rem" }}
+        />
+        <Column
+          field="location"
+          header="Location"
+          body={pTemplate3}
+          filter={selectedFilterFields.includes("location")}
+          hidden={selectedHideFields?.includes("location")}
+          sortable
+          style={{ minWidth: "8rem" }}
+        />
+        <Column
+          field="imageUri"
+          header="Image URI"
+          body={pTemplate4}
+          filter={selectedFilterFields.includes("imageUri")}
+          hidden={selectedHideFields?.includes("imageUri")}
+          sortable
+          style={{ minWidth: "8rem" }}
+        />
+        <Column
+          field="imageName"
+          header="Image Name"
+          body={pTemplate5}
+          filter={selectedFilterFields.includes("imageName")}
+          hidden={selectedHideFields?.includes("imageName")}
+          sortable
+          style={{ minWidth: "8rem" }}
+        />
+        <Column
+          field="authentication"
+          header="Authentication"
+          body={p_booleanTemplate6}
+          filter={selectedFilterFields.includes("authentication")}
+          hidden={selectedHideFields?.includes("authentication")}
+          style={{ minWidth: "8rem" }}
+        />
+        <Column
+          field="serviceAccount"
+          header="Service Account"
+          body={pTemplate7}
+          filter={selectedFilterFields.includes("serviceAccount")}
+          hidden={selectedHideFields?.includes("serviceAccount")}
+          sortable
+          style={{ minWidth: "8rem" }}
+        />
+        <Column
+          field="memory"
+          header="Memory"
+          body={pTemplate8}
+          filter={selectedFilterFields.includes("memory")}
+          hidden={selectedHideFields?.includes("memory")}
+          sortable
+          style={{ minWidth: "8rem" }}
+        />
+        <Column
+          field="cpu"
+          header="CPU"
+          body={pTemplate9}
+          filter={selectedFilterFields.includes("cpu")}
+          hidden={selectedHideFields?.includes("cpu")}
+          sortable
+          style={{ minWidth: "8rem" }}
+        />
+        <Column
+          field="concurrency"
+          header="Concurrency"
+          body={pTemplate10}
+          filter={selectedFilterFields.includes("concurrency")}
+          hidden={selectedHideFields?.includes("concurrency")}
+          sortable
+          style={{ minWidth: "8rem" }}
+        />
+        <Column
+          field="maxInstances"
+          header="Max Instances"
+          body={pTemplate11}
+          filter={selectedFilterFields.includes("maxInstances")}
+          hidden={selectedHideFields?.includes("maxInstances")}
+          sortable
+          style={{ minWidth: "8rem" }}
+        />
+        <Column
+          field="minInstances"
+          header="Min Instances"
+          body={pTemplate12}
+          filter={selectedFilterFields.includes("minInstances")}
+          hidden={selectedHideFields?.includes("minInstances")}
+          sortable
+          style={{ minWidth: "8rem" }}
+        />
+        <Column
+          field="vpcConnector"
+          header="VPC Connector"
+          body={pTemplate13}
+          filter={selectedFilterFields.includes("vpcConnector")}
+          hidden={selectedHideFields?.includes("vpcConnector")}
+          sortable
+          style={{ minWidth: "8rem" }}
+        />
+        <Column
+          field="vpcEgress"
+          header="VPC Egress"
+          body={pTemplate14}
+          filter={selectedFilterFields.includes("vpcEgress")}
+          hidden={selectedHideFields?.includes("vpcEgress")}
+          sortable
+          style={{ minWidth: "8rem" }}
+        />
+        <Column header="Edit" body={editTemplate} />
+        <Column header="Delete" body={deleteTemplate} />
+      </DataTable>
 
       {selectedItems.length > 0 ? (
         <div
@@ -321,20 +472,28 @@ const pTemplate14 = (rowData, { rowIndex }) => <p >{rowData.vpcEgress}</p>
         </div>
       ) : null}
 
-
-        <Dialog header="Upload Projectgcp Data" visible={showUpload} onHide={() => setShowUpload(false)}>
-        <UploadService 
-          user={user} 
-          serviceName="projectgcp"            
+      <Dialog
+        header="Upload Projectgcp Data"
+        visible={showUpload}
+        onHide={() => setShowUpload(false)}
+      >
+        <UploadService
+          user={user}
+          serviceName="projectgcp"
           onUploadComplete={() => {
             setShowUpload(false); // Close the dialog after upload
-          }}/>
+          }}
+        />
       </Dialog>
 
-      <Dialog header="Search Projectgcp" visible={searchDialog} onHide={() => setSearchDialog(false)}>
-      Search
-    </Dialog>
-    <Dialog
+      <Dialog
+        header="Search Projectgcp"
+        visible={searchDialog}
+        onHide={() => setSearchDialog(false)}
+      >
+        Search
+      </Dialog>
+      <Dialog
         header="Filter Users"
         visible={showFilter}
         onHide={() => setShowFilter(false)}
@@ -359,7 +518,7 @@ const pTemplate14 = (rowData, { rowIndex }) => <p >{rowData.vpcEgress}</p>
             console.log(selectedFilterFields);
             onClickSaveFilteredfields(selectedFilterFields);
             setSelectedFilterFields(selectedFilterFields);
-            setShowFilter(false)
+            setShowFilter(false);
           }}
         ></Button>
       </Dialog>
@@ -389,12 +548,12 @@ const pTemplate14 = (rowData, { rowIndex }) => <p >{rowData.vpcEgress}</p>
             console.log(selectedHideFields);
             onClickSaveHiddenfields(selectedHideFields);
             setSelectedHideFields(selectedHideFields);
-            setShowColumns(false)
+            setShowColumns(false);
           }}
         ></Button>
       </Dialog>
-        </>
-    );
+    </>
+  );
 };
 
 export default ProjectgcpDataTable;

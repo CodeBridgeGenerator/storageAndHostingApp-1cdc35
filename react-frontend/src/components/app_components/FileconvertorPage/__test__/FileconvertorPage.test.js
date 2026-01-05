@@ -9,14 +9,14 @@ import { Provider } from "react-redux";
 import * as models from "../../../models";
 
 test("renders fileconvertor page", async () => {
-    const store = init({ models });
-    render(
-        <Provider store={store}>
-            <MemoryRouter>
-                <FileconvertorPage />
-            </MemoryRouter>
-        </Provider>
-    );
-    expect(screen.getByRole("fileconvertor-datatable")).toBeInTheDocument();
-    expect(screen.getByRole("fileconvertor-add-button")).toBeInTheDocument();
+  const store = init({ models });
+  render(
+    <Provider store={store}>
+      <MemoryRouter>
+        <FileconvertorPage />
+      </MemoryRouter>
+    </Provider>,
+  );
+  expect(screen.getByRole("fileconvertor-datatable")).toBeInTheDocument();
+  expect(screen.getByRole("fileconvertor-add-button")).toBeInTheDocument();
 });

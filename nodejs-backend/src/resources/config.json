@@ -20,13 +20,7 @@
   "stack": [
     {
       "appName": "nodejs-backend",
-      "environments": [
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
+      "environments": [null, null, null, null, null],
       "pathToLogo": {
         "s": "/assets/applications_logos/nodejs-s.png",
         "l": "/assets/applications_logos/nodejs.png"
@@ -38,13 +32,7 @@
     },
     {
       "appName": "react-frontend",
-      "environments": [
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
+      "environments": [null, null, null, null, null],
       "pathToLogo": {
         "s": "/assets/applications_logos/react-s.png",
         "l": "/assets/applications_logos/react.png"
@@ -369,9 +357,7 @@
       "edit": true,
       "delete": true,
       "single": true,
-      "sidebar": [
-        "users"
-      ],
+      "sidebar": ["users"],
       "schemaList": [
         {
           "fieldName": "billType",
@@ -1319,9 +1305,7 @@
       "edit": true,
       "delete": true,
       "single": true,
-      "sidebar": [
-        "users"
-      ],
+      "sidebar": ["users"],
       "schemaList": [
         {
           "fieldName": "projectId",
@@ -1441,9 +1425,7 @@
       "edit": true,
       "delete": true,
       "single": true,
-      "sidebar": [
-        "users"
-      ],
+      "sidebar": ["users"],
       "schemaList": [
         {
           "fieldName": "projectId",

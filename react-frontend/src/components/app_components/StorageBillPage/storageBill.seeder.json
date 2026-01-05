@@ -1,18 +1,18 @@
 [
-    {
-        "type": "Free",
-        "gbStored": "5 GB",
-        "gbDownloaded": "1 GB/day",
-        "uploadOperations": "20K/day",
-        "downloadOperations": "50K/day",
-        "bucketsPerProject": "1 bucket"
-    },
-    {
-        "type": "PAYG",
-        "gbStored": "> 5 GB",
-        "gbDownloaded": "> 1 GB/day",
-        "uploadOperations": "> 20K/day",
-        "downloadOperations": "> 50K/day",
-        "bucketsPerProject": "> 1 bucket"
-    }
+  {
+    "type": "Free",
+    "gbStored": "5 GB",
+    "gbDownloaded": "1 GB/day",
+    "uploadOperations": "20K/day",
+    "downloadOperations": "50K/day",
+    "bucketsPerProject": "1 bucket"
+  },
+  {
+    "type": "PAYG",
+    "gbStored": "> 5 GB",
+    "gbDownloaded": "> 1 GB/day",
+    "uploadOperations": "> 20K/day",
+    "downloadOperations": "> 50K/day",
+    "bucketsPerProject": "> 1 bucket"
+  }
 ]

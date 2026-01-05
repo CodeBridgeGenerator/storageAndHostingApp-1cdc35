@@ -1,24 +1,24 @@
 [
-    {
-        "projectId": "asdfasdf",
-        "env": "stg",
-        "gcpProjectId": "dskjavb",
-        "location": "afhgha",
-        "imageUri": "https://www.example.com/index.html#section2",
-        "imageName": "image name ",
-        "serviceAccount": "name@gmail.com",
-        "memory": "512Mi",
-        "cpu": 1,
-        "concurrency": 80,
-        "maxInstances": 5,
-        "minInstances": 1,
-        "vpcConnector": "my vpc connector",
-        "vpcEgress": "all trafic"
-    },
-    {
-        "env": "prd"
-    },
-    {
-        "env": "sit"
-    }
+  {
+    "projectId": "asdfasdf",
+    "env": "stg",
+    "gcpProjectId": "dskjavb",
+    "location": "afhgha",
+    "imageUri": "https://www.example.com/index.html#section2",
+    "imageName": "image name ",
+    "serviceAccount": "name@gmail.com",
+    "memory": "512Mi",
+    "cpu": 1,
+    "concurrency": 80,
+    "maxInstances": 5,
+    "minInstances": 1,
+    "vpcConnector": "my vpc connector",
+    "vpcEgress": "all trafic"
+  },
+  {
+    "env": "prd"
+  },
+  {
+    "env": "sit"
+  }
 ]

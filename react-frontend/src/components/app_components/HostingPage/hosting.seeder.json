@@ -1,16 +1,16 @@
 [
-    {
-        "type": "Free",
-        "storage": "10 GB",
-        "dataTransfer": "360 MB/day",
-        "domainSsl": "Custom domain & SSL",
-        "sitesPerProject": "Multiple sites per project"
-    },
-    {
-        "type": "PAYG",
-        "storage": "> 10 GB",
-        "dataTransfer": "> 360 MB/day",
-        "domainSsl": "Custom domain & SSL",
-        "sitesPerProject": "Multiple sites per project"
-    }
+  {
+    "type": "Free",
+    "storage": "10 GB",
+    "dataTransfer": "360 MB/day",
+    "domainSsl": "Custom domain & SSL",
+    "sitesPerProject": "Multiple sites per project"
+  },
+  {
+    "type": "PAYG",
+    "storage": "> 10 GB",
+    "dataTransfer": "> 360 MB/day",
+    "domainSsl": "Custom domain & SSL",
+    "sitesPerProject": "Multiple sites per project"
+  }
 ]

@@ -1,10 +1,10 @@
 [
-    {
-        "type": "Free",
-        "fileSize": "10 MB"
-    },
-    {
-        "type": "PAYG",
-        "fileSize": "> 10 MB"
-    }
+  {
+    "type": "Free",
+    "fileSize": "10 MB"
+  },
+  {
+    "type": "PAYG",
+    "fileSize": "> 10 MB"
+  }
 ]

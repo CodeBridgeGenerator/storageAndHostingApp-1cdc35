@@ -1,10 +1,10 @@
 [
-    {
-        "type": "Free",
-        "emailMessages": "20 messages"
-    },
-    {
-        "type": "PAYG",
-        "emailMessages": "> 20 messages"
-    }
+  {
+    "type": "Free",
+    "emailMessages": "20 messages"
+  },
+  {
+    "type": "PAYG",
+    "emailMessages": "> 20 messages"
+  }
 ]
