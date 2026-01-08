@@ -1,3 +1,4 @@
 const { Service } = require("feathers-mongoose");
-
-exports.AiEmbeddings = class AiEmbeddings extends Service {};
+const FindService = require("../../utils/abstracts/FindService");
+const MixedService = FindService(Service);
+exports.AiEmbeddings = class AiEmbeddings extends MixedService {};

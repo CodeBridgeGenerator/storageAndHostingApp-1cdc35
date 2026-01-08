@@ -22,7 +22,8 @@ module.exports = function (app) {
         required: true,
       },
     },
-    {
+        {
+      embeddings: [{ type: Number }],
       timestamps: true,
     },
   );

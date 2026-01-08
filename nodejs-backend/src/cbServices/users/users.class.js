@@ -1,5 +1,6 @@
 const { Service } = require("feathers-mongoose");
-
+const FindService = require("../../utils/abstracts/FindService");
+const MixedService = FindService(Service);
 exports.Users = class Users extends Service {
   async find(params) {
     // Convert email to lowercase if it exists in query

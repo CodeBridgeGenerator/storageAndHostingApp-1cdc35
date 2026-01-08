@@ -1,3 +1,4 @@
 const { Service } = require("feathers-mongoose");
-
-exports.DynaLoader = class DynaLoader extends Service {};
+const FindService = require("../../utils/abstracts/FindService");
+const MixedService = FindService(Service);
+exports.DynaLoader = class DynaLoader extends MixedService {};

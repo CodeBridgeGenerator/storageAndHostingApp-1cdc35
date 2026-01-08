@@ -14,19 +14,15 @@ async function verifyEmail(req, res) {
     });
 
     if (isValid) {
-      return res
-        .status(200)
-        .json({
-          valid: true,
-          message: "Email domain is valid and can receive emails.",
-        });
+      return res.status(200).json({
+        valid: true,
+        message: "Email domain is valid and can receive emails.",
+      });
     } else {
-      return res
-        .status(400)
-        .json({
-          valid: false,
-          message: "Email domain is invalid or cannot receive emails.",
-        });
+      return res.status(400).json({
+        valid: false,
+        message: "Email domain is invalid or cannot receive emails.",
+      });
     }
   } catch (error) {
     if (error.message.match(/timed out/)) {

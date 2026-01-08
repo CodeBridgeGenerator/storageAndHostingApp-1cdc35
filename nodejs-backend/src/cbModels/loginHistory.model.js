@@ -12,7 +12,8 @@ module.exports = function (app) {
       userAgent: { type: String },
       logoutTime: { type: Date },
     },
-    {
+        {
+      embeddings: [{ type: Number }],
       timestamps: true,
     },
   );

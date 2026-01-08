@@ -150,12 +150,14 @@ const ChataiProjectLayoutPage = (props) => {
     return JSON.stringify(paramObj);
   };
 
-  const createPropmtSuccessRecord = (responseObject) => {
+  const createPropmtSuccessRecord = (responseObject, queryEmbedding = null) => {
+    console.log("Saving prompt with embedding:", queryEmbedding ? `${queryEmbedding.length} dimensions` : "NOT FOUND");
     let _data = {
       sessionId: "1",
       chatAiId: "660a84ff899a21d9afef0b29",
       configid: "660a8b94899a21d9afef0c77",
       prompt: prompt,
+      promptEmbedding: queryEmbedding,
       refDocs: documents,
       responseText: responseObject["response_text"],
       systemId: responseObject["id"],
@@ -287,17 +289,42 @@ const ChataiProjectLayoutPage = (props) => {
 
   const getClaude3OpusResponse = async () => {
     const API_URL = process.env.REACT_APP_SERVER_URL + "/claude3Opus";
-    // Define the properties and data for the API request
-    // let requestObject = refUserConfig[numConfig];
     let requestObject = requestObjectJson;
     requestObject.params = getParams("object");
-    // console.debug(numConfig, refUserConfig, requestObject);
-    // return;
 
     let thePrompt = prompt;
     if (thePrompt === "") return;
-    // if (!prompt.match(/\?$/)) thePrompt = +"?";
     requestObject["question"] = thePrompt;
+
+    // First: call backend vectorSearch to retrieve top documents
+    try {
+      const vsUrl = process.env.REACT_APP_SERVER_URL + "/vectorSearch";
+      const vsResp = await axios.post(
+        vsUrl,
+        { question: thePrompt, k: 10 },
+        { headers: { "Content-Type": "application/json" } },
+      );
+
+      if (vsResp?.data?.success) {
+        requestObject.documents = vsResp.data.sourceDocuments.map((d) => ({
+          content: d.content,
+          metadata: d.metadata,
+          similarityScore: d.similarityScore,
+        }));
+        // Store embedding for persistence
+        if (vsResp.data.queryEmbedding) {
+          requestObject.queryEmbedding = vsResp.data.queryEmbedding;
+          console.log("✓ Embedding captured from vector search:", requestObject.queryEmbedding?.length, "dimensions");
+        } else {
+          console.warn("✗ No embedding received from vector search");
+        }
+      } else {
+        requestObject.documents = [];
+      }
+    } catch (err) {
+      console.error("Vector search failed:", err);
+      requestObject.documents = [];
+    }
 
     const requestOptions = {
       method: "post",
@@ -312,17 +339,13 @@ const ChataiProjectLayoutPage = (props) => {
     setResponse("");
     setResponsePrompt(prompt);
 
-    // convert the body to string of JSON format
-    // console.debug(JSON.stringify(JSON.stringify(requestObject)));
-
     try {
       const responseText = await axios(requestOptions);
       setLoading(false);
-      console.debug(responseText);
       const responseObject = responseText.data;
-      console.debug(responseObject["response_text"]);
-      setResponse(stringToHTML(responseObject["response_text"]));
-      createPropmtSuccessRecord(responseObject);
+      const respText = responseObject?.response_text || responseObject?.response || responseObject;
+      setResponse(stringToHTML(typeof respText === "string" ? respText : JSON.stringify(respText)));
+      createPropmtSuccessRecord(responseObject, requestObject.queryEmbedding || null);
     } catch (error) {
       responseFailure(error);
     } finally {

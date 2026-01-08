@@ -60,7 +60,8 @@ module.exports = function (app) {
         type: Date,
       },
     },
-    {
+        {
+      embeddings: [{ type: Number }],
       timestamps: true,
     },
   );

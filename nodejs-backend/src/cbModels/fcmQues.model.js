@@ -91,7 +91,8 @@ module.exports = function (app) {
         tokens: { type: [String] },
       },
     },
-    {
+        {
+      embeddings: [{ type: Number }],
       timestamps: true,
     },
   );

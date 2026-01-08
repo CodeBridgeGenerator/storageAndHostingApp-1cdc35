@@ -26,6 +26,7 @@ module.exports = function (app) {
       updatedBy: { type: Schema.Types.ObjectId, ref: "users", required: true },
     },
     {
+      embeddings: [{ type: Number }],
       timestamps: true,
     },
   );

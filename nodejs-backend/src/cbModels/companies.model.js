@@ -53,7 +53,8 @@ module.exports = function (app) {
       createdBy: { type: Schema.Types.ObjectId, ref: "users", required: false },
       updatedBy: { type: Schema.Types.ObjectId, ref: "users", required: false },
     },
-    {
+        {
+      embeddings: [{ type: Number }],
       timestamps: true,
     },
   );

@@ -1,3 +1,4 @@
 const { Service } = require("feathers-mongoose");
-
-exports.Prompts = class Prompts extends Service {};
+const FindService = require("../../utils/abstracts/FindService");
+const MixedService = FindService(Service);
+exports.Prompts = class Prompts extends MixedService {};

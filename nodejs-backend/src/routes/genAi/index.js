@@ -2,6 +2,7 @@ const express = require("@feathersjs/express");
 const claude3Haiku = require("./claude3Haiku");
 const claude3sonnet = require("./claude3sonnet");
 const claude3Opus = require("./claude3Opus");
+const vectorSearch = require("./vectorSearch");
 
 module.exports = function (app) {
   app.post(
@@ -20,5 +21,11 @@ module.exports = function (app) {
     "/claude3Opus",
     express.raw({ type: "application/json" }),
     claude3Opus,
+  );
+  // vector search proxy
+  app.post(
+    "/vectorSearch",
+    express.json({ type: "application/json" }),
+    vectorSearch,
   );
 };
