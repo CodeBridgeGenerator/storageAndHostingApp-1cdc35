@@ -100,9 +100,10 @@ module.exports = function (app) {
         ref: "users",
         required: true,
       },
+      // Persist the 384-dim prompt embedding sent by the frontend
+      promptEmbedding: { type: [Number], default: undefined },
     },
-        {
-      embeddings: [{ type: Number }],
+    {
       timestamps: true,
     },
   );

@@ -345,7 +345,8 @@ const ChataiProjectLayoutPage = (props) => {
       const responseObject = responseText.data;
       const respText = responseObject?.response_text || responseObject?.response || responseObject;
       setResponse(stringToHTML(typeof respText === "string" ? respText : JSON.stringify(respText)));
-      createPropmtSuccessRecord(responseObject, requestObject.queryEmbedding || null);
+      // Pass embedding only if available (avoid passing explicit null)
+      createPropmtSuccessRecord(responseObject, requestObject.queryEmbedding);
     } catch (error) {
       responseFailure(error);
     } finally {
